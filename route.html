@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Find Route - City Route Finder</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    min-height: 100vh;
+    background: #eaf7f5;
+    color: #183c3a;
+}
+
+/* NAVBAR */
+
+nav {
+    height: 75px;
+    background: white;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 5%;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+}
+
+.logo {
+    font-size: 28px;
+    font-weight: bold;
+    color: #087f73;
+}
+
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: #183c3a;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.nav-links a:hover {
+    color: #087f73;
+}
+
+.logout {
+    background: #087f73;
+    color: white !important;
+    padding: 11px 25px;
+    border-radius: 25px;
+}
+
+/* MAIN */
+
+.container {
+    width: 90%;
+    max-width: 850px;
+    margin: 50px auto;
+}
+
+.route-card {
+    background: white;
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+}
+
+.route-card h1 {
+    text-align: center;
+    color: #087f73;
+    margin-bottom: 10px;
+}
+
+.subtitle {
+    text-align: center;
+    color: #666;
+    margin-bottom: 30px;
+}
+
+/* INPUT */
+
+.input-box {
+    margin-bottom: 22px;
+}
+
+.input-box label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+.input-box input {
+    width: 100%;
+    padding: 14px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    font-size: 16px;
+    outline: none;
+}
+
+.input-box input:focus {
+    border-color: #087f73;
+}
+
+/* TRAVEL MODE */
+
+.mode-title {
+    font-weight: bold;
+    margin-bottom: 12px;
+}
+
+.modes {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-bottom: 25px;
+}
+
+.mode {
+    padding: 15px;
+    text-align: center;
+    border: 2px solid #ddd;
+    border-radius: 10px;
+    cursor: pointer;
+    background: white;
+}
+
+.mode:hover {
+    border-color: #087f73;
+}
+
+.mode.active {
+    background: #e5f6f3;
+    border-color: #087f73;
+    color: #087f73;
+    font-weight: bold;
+}
+
+/* BUTTON */
+
+.find-btn {
+    width: 100%;
+    padding: 15px;
+    background: #087f73;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 17px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.find-btn:hover {
+    background: #06685f;
+}
+
+/* RESULT */
+
+#result {
+    display: none;
+    margin-top: 30px;
+    padding: 25px;
+    background: #eaf7f5;
+    border-radius: 15px;
+}
+
+#result h2 {
+    color: #087f73;
+    margin-bottom: 15px;
+}
+
+.result-line {
+    margin: 10px 0;
+}
+
+.map-btn {
+    display: block;
+    text-align: center;
+    text-decoration: none;
+    background: #087f73;
+    color: white;
+    padding: 13px;
+    border-radius: 8px;
+    margin-top: 20px;
+}
+
+.save-btn {
+    width: 100%;
+    margin-top: 12px;
+    padding: 13px;
+    background: white;
+    border: 2px solid #087f73;
+    color: #087f73;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.save-btn:hover {
+    background: #e5f6f3;
+}
+
+#message {
+    text-align: center;
+    margin-top: 12px;
+    font-weight: bold;
+}
+
+/* MOBILE */
+
+@media(max-width:700px) {
+
+    nav {
+        height: auto;
+        padding: 18px;
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .nav-links {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 12px;
+    }
+
+    .modes {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .route-card {
+        padding: 25px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+
+<nav>
+
+    <div class="logo">
+        🗺️ City Route Finder
+    </div>
+
+    <div class="nav-links">
+        <a href="home.html">Home</a>
+        <a href="route.html">Find Route</a>
+        <a href="history.html">My Routes</a>
+        <a href="cities.html">Cities</a>
+        <a href="login.html" class="logout">Logout</a>
+    </div>
+
+</nav>
+
+
+<!-- ROUTE -->
+
+<div class="container">
+
+    <div class="route-card">
+
+        <h1>🛣️ Find Your Route</h1>
+
+        <p class="subtitle">
+            Enter your starting location and destination
+        </p>
+
+
+        <!-- START -->
+
+        <div class="input-box">
+
+            <label>📍 Starting Location</label>
+
+            <input
+                type="text"
+                id="starting"
+                placeholder="Enter starting city"
+            >
+
+        </div>
+
+
+        <!-- DESTINATION -->
+
+        <div class="input-box">
+
+            <label>🎯 Destination</label>
+
+            <input
+                type="text"
+                id="destination"
+                placeholder="Enter destination city"
+            >
+
+        </div>
+
+
+        <!-- MODE -->
+
+        <div class="mode-title">
+            🚘 Select Travel Mode
+        </div>
+
+        <div class="modes">
+
+            <div class="mode active" data-mode="driving">
+                🚗 Car
+            </div>
+
+            <div class="mode" data-mode="driving">
+                🏍️ Bike
+            </div>
+
+            <div class="mode" data-mode="bicycling">
+                🚲 Bicycle
+            </div>
+
+            <div class="mode" data-mode="transit">
+                🚆 Train
+            </div>
+
+            <div class="mode" data-mode="transit">
+                🚌 Bus
+            </div>
+
+            <div class="mode" data-mode="walking">
+                🚶 Walking
+            </div>
+
+        </div>
+
+
+        <button class="find-btn" onclick="findRoute()">
+            🔍 Find Route
+        </button>
+
+
+        <!-- RESULT -->
+
+        <div id="result">
+
+            <h2>🗺️ Route Details</h2>
+
+            <div class="result-line">
+                <strong>From:</strong>
+                <span id="showFrom"></span>
+            </div>
+
+            <div class="result-line">
+                <strong>To:</strong>
+                <span id="showTo"></span>
+            </div>
+
+            <div class="result-line">
+                <strong>Travel Mode:</strong>
+                <span id="showMode"></span>
+            </div>
+
+            <a
+                id="mapLink"
+                href="#"
+                target="_blank"
+                class="map-btn"
+            >
+                🗺️ Open Route in Google Maps
+            </a>
+
+            <button class="save-btn" onclick="saveRoute()">
+                💾 Save This Route
+            </button>
+
+            <div id="message"></div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<script>
+
+let selectedMode = "driving";
+
+let currentFrom = "";
+let currentTo = "";
+let currentMapURL = "";
+
+
+/* TRAVEL MODE */
+
+const modes = document.querySelectorAll(".mode");
+
+modes.forEach(function(mode) {
+
+    mode.addEventListener("click", function() {
+
+        modes.forEach(function(item) {
+            item.classList.remove("active");
+        });
+
+        this.classList.add("active");
+
+        selectedMode =
+            this.getAttribute("data-mode");
+
+    });
+
+});
+
+
+/* FIND ROUTE */
+
+function findRoute() {
+
+    let starting =
+        document.getElementById("starting").value.trim();
+
+    let destination =
+        document.getElementById("destination").value.trim();
+
+
+    if (starting === "" || destination === "") {
+
+        alert(
+            "Please enter Starting Location and Destination."
+        );
+
+        return;
+    }
+
+
+    currentFrom = starting;
+
+    currentTo = destination;
+
+
+    currentMapURL =
+        "https://www.google.com/maps/dir/?api=1"
+        + "&origin="
+        + encodeURIComponent(starting)
+        + "&destination="
+        + encodeURIComponent(destination)
+        + "&travelmode="
+        + selectedMode;
+
+
+    document.getElementById("showFrom").innerText =
+        starting;
+
+    document.getElementById("showTo").innerText =
+        destination;
+
+
+    let modeName = "";
+
+    if (selectedMode === "driving") {
+        modeName = "Car / Bike";
+    }
+
+    else if (selectedMode === "bicycling") {
+        modeName = "Bicycle";
+    }
+
+    else if (selectedMode === "transit") {
+        modeName = "Train / Bus";
+    }
+
+    else if (selectedMode === "walking") {
+        modeName = "Walking";
+    }
+
+
+    document.getElementById("showMode").innerText =
+        modeName;
+
+
+    document.getElementById("mapLink").href =
+        currentMapURL;
+
+
+    document.getElementById("result").style.display =
+        "block";
+}
+
+
+/* SAVE ROUTE */
+
+function saveRoute() {
+
+    if (currentFrom === "" || currentTo === "") {
+
+        alert("First find a route.");
+
+        return;
+    }
+
+
+    let routes =
+        JSON.parse(
+            localStorage.getItem("savedRoutes")
+        ) || [];
+
+
+    let newRoute = {
+
+        from: currentFrom,
+
+        to: currentTo,
+
+        mode: selectedMode,
+
+        date: new Date().toLocaleDateString(),
+
+        link: currentMapURL
+
+    };
+
+
+    routes.push(newRoute);
+
+
+    localStorage.setItem(
+        "savedRoutes",
+        JSON.stringify(routes)
+    );
+
+
+    document.getElementById("message").style.color =
+        "green";
+
+    document.getElementById("message").innerText =
+        "✅ Route saved successfully!";
+
+}
+
+
+/* ⭐ CITIES PAGE → DESTINATION AUTOMATICALLY ⭐ */
+
+const urlParams =
+    new URLSearchParams(window.location.search);
+
+const city =
+    urlParams.get("destination");
+
+
+if (city) {
+
+    document.getElementById("destination").value =
+        city;
+
+}
+
+</script>
+
+</body>
+</html>

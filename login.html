@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Login - City Route Finder</title>
+
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+
+        body {
+
+            min-height: 100vh;
+
+            background-image:
+                linear-gradient(
+                    rgba(0, 0, 0, 0.55),
+                    rgba(0, 0, 0, 0.55)
+                ),
+                url("https://images.unsplash.com/photo-1473448912268-2022ce9509d8?auto=format&fit=crop&w=1600&q=80");
+
+            background-size: cover;
+            background-position: center;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+        }
+
+
+        .login-box {
+
+            width: 380px;
+
+            background: white;
+
+            padding: 35px;
+
+            border-radius: 15px;
+
+            box-shadow:
+                0 10px 30px rgba(0,0,0,0.3);
+
+        }
+
+
+        .logo {
+
+            text-align: center;
+
+            font-size: 27px;
+
+            font-weight: bold;
+
+            color: #176b87;
+
+            margin-bottom: 10px;
+
+        }
+
+
+        .title {
+
+            text-align: center;
+
+            font-size: 25px;
+
+            color: #222;
+
+            margin-bottom: 8px;
+
+        }
+
+
+        .subtitle {
+
+            text-align: center;
+
+            color: #777;
+
+            margin-bottom: 25px;
+
+        }
+
+
+        label {
+
+            display: block;
+
+            font-weight: bold;
+
+            color: #333;
+
+            margin-bottom: 7px;
+
+        }
+
+
+        input {
+
+            width: 100%;
+
+            padding: 13px;
+
+            border: 1px solid #ccc;
+
+            border-radius: 8px;
+
+            margin-bottom: 18px;
+
+            font-size: 15px;
+
+        }
+
+
+        input:focus {
+
+            outline: none;
+
+            border-color: #176b87;
+
+        }
+
+
+        button {
+
+            width: 100%;
+
+            padding: 13px;
+
+            border: none;
+
+            border-radius: 8px;
+
+            background: #176b87;
+
+            color: white;
+
+            font-size: 16px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+
+        }
+
+
+        button:hover {
+
+            background: #0f5269;
+
+        }
+
+
+        .message {
+
+            text-align: center;
+
+            margin-top: 15px;
+
+            font-weight: bold;
+
+        }
+
+
+        .signup-text {
+
+            text-align: center;
+
+            margin-top: 20px;
+
+            color: #666;
+
+        }
+
+
+        .signup-text a {
+
+            color: #176b87;
+
+            text-decoration: none;
+
+            font-weight: bold;
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <div class="login-box">
+
+
+        <div class="logo">
+
+            📍 City Route Finder
+
+        </div>
+
+
+        <h2 class="title">
+
+            Welcome Back
+
+        </h2>
+
+
+        <p class="subtitle">
+
+            Login to find your route
+
+        </p>
+
+
+        <form onsubmit="loginUser(event)">
+
+
+            <label>
+
+                Email Address
+
+            </label>
+
+
+            <input
+                type="email"
+                id="email"
+                placeholder="Enter your email"
+                required
+            >
+
+
+            <label>
+
+                Password
+
+            </label>
+
+
+            <input
+                type="password"
+                id="password"
+                placeholder="Enter your password"
+                required
+            >
+
+
+            <button type="submit">
+
+                Login
+
+            </button>
+
+
+        </form>
+
+
+        <p
+            class="message"
+            id="message">
+        </p>
+
+
+        <p class="signup-text">
+
+            Don't have an account?
+
+            <a href="signup.html">
+
+                Create Account
+
+            </a>
+
+        </p>
+
+
+    </div>
+
+
+    <script>
+
+
+        function loginUser(event) {
+
+            event.preventDefault();
+
+
+            let email =
+                document.getElementById("email").value;
+
+            let password =
+                document.getElementById("password").value;
+
+
+            let message =
+                document.getElementById("message");
+
+
+            /* Get saved account */
+
+            let savedUser =
+                localStorage.getItem("cityRouteUser");
+
+
+            /* No account */
+
+            if (!savedUser) {
+
+                message.style.color = "red";
+
+                message.innerText =
+                    "Please create an account first!";
+
+                return;
+
+            }
+
+
+            let user =
+                JSON.parse(savedUser);
+
+
+            /* Check email and password */
+
+            if (
+                email === user.email &&
+                password === user.password
+            ) {
+
+                message.style.color = "green";
+
+                message.innerText =
+                    "Login successful!";
+
+
+                setTimeout(function() {
+
+                    window.location.href =
+                        "home.html";
+
+                }, 1000);
+
+            }
+
+
+            else {
+
+                message.style.color = "red";
+
+                message.innerText =
+                    "Invalid email or password!";
+
+            }
+
+        }
+
+
+    </script>
+
+
+</body>
+
+</html>

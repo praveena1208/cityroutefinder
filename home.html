@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>City Route Finder - Home</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+
+            background:
+                linear-gradient(
+                    rgba(10, 50, 55, 0.60),
+                    rgba(10, 50, 55, 0.60)
+                ),
+                url("https://images.unsplash.com/photo-1473448912268-2022ce9509d8?auto=format&fit=crop&w=1600&q=80");
+
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+
+        /* NAVBAR */
+
+        nav {
+            height: 70px;
+            background: white;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            padding: 0 6%;
+
+            box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #167a68;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 25px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+        }
+
+        .nav-links a:hover {
+            color: #167a68;
+        }
+
+        .logout {
+            background: #167a68;
+            color: white !important;
+            padding: 10px 20px;
+            border-radius: 20px;
+        }
+
+        /* HERO */
+
+        .hero {
+            min-height: calc(100vh - 70px);
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            text-align: center;
+
+            padding: 50px 20px;
+        }
+
+        .hero-content {
+            max-width: 1000px;
+            color: white;
+        }
+
+        .hero-content h1 {
+            font-size: 52px;
+            margin-bottom: 18px;
+        }
+
+        .hero-content p {
+            font-size: 18px;
+            line-height: 1.7;
+            margin-bottom: 40px;
+        }
+
+        /* BOX CONTAINER */
+
+        .menu-boxes {
+            display: flex;
+            justify-content: center;
+            align-items: stretch;
+
+            gap: 25px;
+
+            flex-wrap: wrap;
+        }
+
+        /* BOX */
+
+        .menu-box {
+            width: 250px;
+            min-height: 190px;
+
+            background: rgba(255,255,255,0.96);
+
+            border-radius: 18px;
+
+            padding: 30px 20px;
+
+            text-decoration: none;
+            color: #333;
+
+            box-shadow: 0 8px 25px rgba(0,0,0,0.25);
+
+            transition: 0.3s;
+        }
+
+        .menu-box:hover {
+            transform: translateY(-8px);
+
+            box-shadow:
+                0 14px 35px rgba(0,0,0,0.35);
+        }
+
+        .menu-icon {
+            font-size: 45px;
+            margin-bottom: 15px;
+        }
+
+        .menu-box h2 {
+            color: #167a68;
+            font-size: 22px;
+            margin-bottom: 10px;
+        }
+
+        .menu-box p {
+            color: #666;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        /* MOBILE */
+
+        @media (max-width: 768px) {
+
+            nav {
+                padding: 0 20px;
+            }
+
+            .logo {
+                font-size: 19px;
+            }
+
+            .nav-links {
+                gap: 10px;
+            }
+
+            .nav-links a {
+                font-size: 12px;
+            }
+
+            .hero-content h1 {
+                font-size: 38px;
+            }
+
+            .hero-content p {
+                font-size: 16px;
+            }
+
+            .menu-box {
+                width: 280px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+
+    <nav>
+
+        <div class="logo">
+            🗺️ City Route Finder
+        </div>
+
+        <div class="nav-links">
+
+            <a href="home.html">
+                Home
+            </a>
+
+            <a href="route.html">
+                Find Route
+            </a>
+
+            <a href="history.html">
+                My Routes
+            </a>
+
+            <a href="cities.html">
+                Cities
+            </a>
+
+            <a href="login.html" class="logout">
+                Logout
+            </a>
+
+        </div>
+
+    </nav>
+
+
+    <!-- HERO SECTION -->
+
+    <section class="hero">
+
+        <div class="hero-content">
+
+            <h1>
+                Find Your Perfect Route
+            </h1>
+
+            <p>
+                Discover routes between cities,
+                explore places and easily plan your journey
+                with City Route Finder.
+            </p>
+
+
+            <!-- THREE BOXES -->
+
+            <div class="menu-boxes">
+
+                <!-- FIND ROUTE -->
+
+                <a href="route.html" class="menu-box">
+
+                    <div class="menu-icon">
+                        🛣️
+                    </div>
+
+                    <h2>
+                        Find Route
+                    </h2>
+
+                    <p>
+                        Enter your starting location
+                        and destination to find the best route.
+                    </p>
+
+                </a>
+
+
+                <!-- MY ROUTES -->
+
+                <a href="history.html" class="menu-box">
+
+                    <div class="menu-icon">
+                        📍
+                    </div>
+
+                    <h2>
+                        My Routes
+                    </h2>
+
+                    <p>
+                        View and manage the routes
+                        you saved previously.
+                    </p>
+
+                </a>
+
+
+                <!-- CITIES -->
+
+                <a href="cities.html" class="menu-box">
+
+                    <div class="menu-icon">
+                        🏙️
+                    </div>
+
+                    <h2>
+                        Cities
+                    </h2>
+
+                    <p>
+                        Explore popular cities and
+                        find routes easily.
+                    </p>
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </section>
+
+</body>
+</html>
